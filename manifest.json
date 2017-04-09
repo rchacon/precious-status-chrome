@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Precious Status",
+  "description": "Unofficial Chrome extension for Precious Status.",
+  "version": "0.0.0",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "dist/popup.html"
+  },
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "https://app.precioustatus.com/api/v1/*"
+  ]
+}
