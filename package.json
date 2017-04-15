@@ -1,0 +1,24 @@
+{
+  "name": "precious-status-chrome",
+  "version": "0.0.0",
+  "description": "## Build",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rchacon/precious-status-chrome.git"
+  },
+  "author": "Raul J Chacon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rchacon/precious-status-chrome/issues"
+  },
+  "homepage": "https://github.com/rchacon/precious-status-chrome#readme",
+  "devDependencies": {
+    "typescript": "^2.2.2"
+  }
+}

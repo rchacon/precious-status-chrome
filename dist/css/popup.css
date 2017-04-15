@@ -1,0 +1,20 @@
+body {
+  height: 400px;
+  width: 300px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li .update {
+  line-height: 20px;
+  list-style-position: inside;
+  border-left: 3px solid blue;
+  padding-left: 6px;
+  margin: 0 0 8px 0;
+}
+
+a {
+  text-decoration: none;
+}

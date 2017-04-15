@@ -1,7 +1,13 @@
 # Precious Status
 
+## Installtion
+
+```
+$ npm install
+```
+
 ## Build
 
 ```
-$ tsc src/popup.ts --outDir dist/js
+$ npm run-script build
 ```
