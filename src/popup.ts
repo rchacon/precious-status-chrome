@@ -39,16 +39,26 @@ function getResidents (token: string) : void {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             let residents = JSON.parse(xhr.responseText)["data"];
 
-            let link, listItem, residentList;
+            let link: HTMLElement, markRead: HTMLElement;
+            let listItem: HTMLElement, residentList: HTMLElement;
             for (let resident of residents) {
+                // Create resident link
                 link = document.createElement("a");
-                link.setAttribute("id", resident["id"] + ":" + token);
+                link.setAttribute("id", `${resident["id"]}:${token}`);
                 link.setAttribute("href", "#");
                 link.onclick = getUpdates;
                 link.innerHTML = `${resident["first_name"]} (${resident["unread_updates_count"]})`;
 
+                // Create mark read button
+                markRead = document.createElement("a");
+                markRead.setAttribute("id", `markRead:${resident["id"]}:${token}`);
+                markRead.setAttribute("href", "#");
+                markRead.onclick = updateUnreadCount;
+                markRead.innerHTML = "Mark all read";
+
                 listItem = document.createElement("li");
                 listItem.appendChild(link);
+                listItem.appendChild(markRead);
 
                 residentList = document.getElementById("resident-list");
                 residentList.appendChild(listItem);
@@ -91,6 +101,21 @@ function getUpdates (e: Event) : boolean {
     xhr.send();
 
     return false;
+}
+
+function updateUnreadCount (e: Event) : void {
+    let target = (<HTMLElement>e.target);
+    let [residentId, token] = target.id.split(":").splice(1, 2);
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("PUT", `${baseUrl}/residents/${residentId}.json`);
+    xhr.setRequestHeader("Authorization", `Basic ${btoa(token + ":")}`);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    let now = (new Date()).toISOString().split(".")[0] + "Z";
+    let data = JSON.stringify({"updates_last_read_at": now});
+    xhr.send(data);
 }
 
 function main () : void {
