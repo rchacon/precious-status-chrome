@@ -44,7 +44,7 @@ function getResidents (token: string) : void {
             for (let resident of residents) {
                 // Create resident link
                 link = document.createElement("a");
-                link.setAttribute("id", `${resident["id"]}:${token}`);
+                link.setAttribute("id", `${resident["id"]}:${token}:${resident["unread_updates_count"]}`);
                 link.setAttribute("href", "#");
                 link.onclick = getUpdates;
                 link.innerHTML = `${resident["first_name"]} (${resident["unread_updates_count"]})`;
@@ -73,7 +73,7 @@ function getResidents (token: string) : void {
 
 function getUpdates (e: Event) : boolean {
     let target = (<HTMLElement>e.target);
-    let [residentId, token] = target.id.split(":");
+    let [residentId, token, unreadCount] = target.id.split(":");
 
     let xhr = new XMLHttpRequest();
 
@@ -83,15 +83,20 @@ function getUpdates (e: Event) : boolean {
 
             let row;
             let updateList = document.createElement("ul");
-            for (let update of updates) {
+            updates.forEach(function (update: any, index: number) {
                 row = document.createElement("li");
                 row.className = "update";
+                if (index < parseInt(unreadCount)) {
+                    row.className += " unread";
+                } else {
+                    row.className += " read";
+                }
                 row.innerHTML = `<span class="occurred_at">${new Date(update["occurred_at"]).toLocaleString()}</span>\
                                  <span class="formatted_type">${update["formatted_type"]}</span>\
                                  <span class="description">${update["description"]}</span>\
                                  <span class="has_love_it"><a href="#" id="${update["id"]}">${update["has_love_it"]}</a></span>`;
                 updateList.appendChild(row);
-            }
+            });
             target.parentElement.appendChild(updateList);
         }
     }

@@ -10,9 +10,16 @@ ul {
 li .update {
   line-height: 20px;
   list-style-position: inside;
-  border-left: 3px solid blue;
   padding-left: 6px;
   margin: 0 0 8px 0;
+}
+
+li .read {
+  border-left: 3px solid #d3d3d3;
+}
+
+li .unread {
+  border-left: 3px solid blue;
 }
 
 a {
