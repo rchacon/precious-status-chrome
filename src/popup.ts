@@ -114,6 +114,20 @@ function updateUnreadCount (e: Event) : void {
 
     let xhr = new XMLHttpRequest();
 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            // Show updates as read
+            let updates = [].slice.call(document.getElementsByClassName("update unread"));
+            for (let update of updates) {
+                update.className = update.className.replace("unread", "read");
+            }
+
+            // Update unread count to 0
+            let resident = document.getElementById(`${residentId}:${token}:${updates.length}`);
+            resident.innerHTML = resident.innerHTML.replace(`(${updates.length})`, "(0)");
+        }
+    }
+
     xhr.open("PUT", `${baseUrl}/residents/${residentId}.json`);
     xhr.setRequestHeader("Authorization", `Basic ${btoa(token + ":")}`);
     xhr.setRequestHeader("Content-Type", "application/json");
