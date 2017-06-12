@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Precious Status",
   "description": "Unofficial Chrome extension for Precious Status.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "icons": {
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
